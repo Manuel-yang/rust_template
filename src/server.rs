@@ -2,7 +2,7 @@ use std::net::TcpListener;
 use actix_cors::Cors;
 use actix_web::{dev::Server, http::header, middleware::Logger, web::{self, scope, ServiceConfig}, App, HttpServer};
 
-use crate::{config::{AppSettings, Settings}, route::hello::hello_world};
+use crate::{config::{AppSettings, Settings}, route::hello::hello_world_handler};
 
 #[doc = "Application state"]
 pub struct AppState {
@@ -13,7 +13,7 @@ pub struct AppState {
 fn get_config(conf: &mut ServiceConfig, settings: &AppSettings) {
     conf.service(
     scope(&settings.api_prefix)
-            .service(hello_world)
+            .service(hello_world_handler)
     );
 }
 
